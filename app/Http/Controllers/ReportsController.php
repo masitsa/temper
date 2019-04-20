@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Report;
 
+use App\Percentage;
+
 use App\Services\Registrations;
 
 use Illuminate\Http\Request;
@@ -33,7 +35,8 @@ class ReportsController extends Controller
         //save array to database
         if($csv_data != FALSE)
         {
-            DB::table('reports')->truncate();
+            //Truncate any data from the table
+            Report::truncate();
 
             Report::insert($csv_data);
 
@@ -46,8 +49,15 @@ class ReportsController extends Controller
 
     public function registrations()
     {
+        //Get all onboarding percentages
+        $percentages = Percentage::all();
+
+        //Get weeks
         $report = new Report();
-        $registrations = $report->getWeeklyRegistrations();
+        $weeks = $report->getWeeks();
+
+        //Fetch registration percentages per week
+        $registrations = $report->getWeeklyRegistrations($weeks, $percentages);
         
         $response['title'] = "Onboarding Report";
 
@@ -57,28 +67,4 @@ class ReportsController extends Controller
 
         return $response;
     }
-
-    // public function registrations()
-    // {
-    //     //Get all registration data
-    //     $registrations = new Registrations();
-
-    //     $csv_data = $registrations->getRegistrations();
-
-    //     dd($csv_data);
-
-    //     //Get unique dates
-    //     $unique_dates = array_values(array_unique(array_map(function ($i) { return $i['created_at']; }, $csv_data)));
-        
-    //     //Get registrations per day
-    //     $daily_registrations = $registrations->getDailyRegistrations($csv_data, $unique_dates);
-
-    //     $response['title'] = "Onboarding Report";
-
-    //     $response['subtitle'] = "From July to August 2016";
-
-    //     $response['data'] = $csv_data;
-
-    //     return $response;
-    // }
 }

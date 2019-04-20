@@ -37,7 +37,7 @@
 
     <div class="form-group">
 
-        <label for="csv_file">Select CSV</label>
+        <label for="csv_file">Select CSV to view chart</label>
 
         <input type="file" class="form-control-file" name="csv_file" id="csv_file" aria-describedby="fileHelp">
 
@@ -75,64 +75,64 @@
 
                     let seriesData = response.data.registrations;
 
-                    console.log(seriesData);
-                    
-                    Highcharts.chart('onboarding', {
+                    if(seriesData.length > 0)
+                    {
+                        Highcharts.chart('onboarding', {
 
-                        title: {
-                            text: response.data.title
-                        },
-
-                        subtitle: {
-                            text: response.data.subtitle
-                        },
-
-                        yAxis: {
                             title: {
-                                text: 'Number of Users'
-                            }
-                        },
-
-                        xAxis: {
-                            title: {
-                                text: 'Registration Progress'
+                                text: response.data.title
                             },
-                            categories: ['Create Account', 'Activate Account', 'Profile Information', 'Job Interest', 'Work Experience', 'Freelancer Status', 'Pending Approval', 'Approval']
-                        },
-                        legend: {
-                            layout: 'vertical',
-                            align: 'right',
-                            verticalAlign: 'middle'
-                        },
 
-                        plotOptions: {
-                            series: {
-                                label: {
-                                    connectorAllowed: false
-                                },
-                                pointStart: 0
-                            }
-                        },
+                            subtitle: {
+                                text: response.data.subtitle
+                            },
 
-                        series : seriesData,
-
-                        responsive: {
-                            rules: [{
-                                condition: {
-                                    maxWidth: 500
-                                },
-                                chartOptions: {
-                                    legend: {
-                                        layout: 'horizontal',
-                                        align: 'center',
-                                        verticalAlign: 'bottom'
-                                    }
+                            yAxis: {
+                                title: {
+                                    text: 'Number of Users'
                                 }
-                            }]
-                        }
+                            },
 
-                    });
+                            xAxis: {
+                                title: {
+                                    text: 'Registration Progress'
+                                },
+                                categories: ['Create Account', 'Activate Account', 'Profile Information', 'Job Interest', 'Work Experience', 'Freelancer Status', 'Pending Approval', 'Approval']
+                            },
+                            legend: {
+                                layout: 'vertical',
+                                align: 'right',
+                                verticalAlign: 'middle'
+                            },
 
+                            plotOptions: {
+                                series: {
+                                    label: {
+                                        connectorAllowed: false
+                                    },
+                                    pointStart: 0
+                                }
+                            },
+
+                            series : seriesData,
+
+                            responsive: {
+                                rules: [{
+                                    condition: {
+                                        maxWidth: 500
+                                    },
+                                    chartOptions: {
+                                        legend: {
+                                            layout: 'horizontal',
+                                            align: 'center',
+                                            verticalAlign: 'bottom'
+                                        }
+                                    }
+                                }]
+                            }
+
+                        });
+                    }
                 })
                 .catch(function (error) {
                     // handle error

@@ -20,14 +20,16 @@ class Report extends Model
         return $result;
     }
 
-    public function getWeeklyRegistrations()
+    private function getWeekPercentage($stage, $week_number)
     {
-        //Get all onboarding percentages
-        $percentages = Percentage::all();
+        return DB::table('reports')
+        ->selectRaw('count(reports.user_id) AS total_registrations')
+        ->whereRaw('reports.onboarding_perentage >= '.$stage.' AND WEEK(reports.created_at) = '.$week_number)
+        ->get();
+    }
 
-        //Get weeks
-        $weeks = $this->getWeeks();
-
+    public function getWeeklyRegistrations($weeks, $percentages)
+    {
         //Get registrations per week per onboarding percentage
         $all_registrations = Array();
 
@@ -44,10 +46,7 @@ class Report extends Model
                 $value = $res->value;
                 $name = $res->name;
 
-                $registrations = DB::table('reports')
-                    ->selectRaw('count(reports.user_id) AS total_registrations')
-                    ->whereRaw('reports.onboarding_perentage >= '.$value.' AND WEEK(reports.created_at) = '.$week_number)
-                    ->get();
+                $registrations = $this->getWeekPercentage($value, $week_number);
                 
                 $onboarded_users = 0;
 
