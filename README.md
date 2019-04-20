@@ -37,6 +37,10 @@ composer install
 ```
 php artisan migrate
 ```
+* Generate an application key
+```
+php artisan key:generate
+```
 * Launch the solution
 ```
 php artisan serve
