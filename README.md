@@ -1,6 +1,6 @@
-# Project Title
+# Temper Tech Assessment Laravel PHP
 
-Temper Tech Assessment Laravel PHP
+This is a simple Laravel application to view the onboarding progress in a chart
 
 ## Getting Started
 
@@ -41,11 +41,11 @@ php artisan serve
 ## Updating The Chart Data
 
 * Click on Browse to select the export.csv file
-![Browse for CSV](https://github.com/masitsa/storage/app/public/1.png)
+![Browse for CSV](https://github.com/masitsa/temper/storage/app/public/1.png)
 * Click on Import to upload the file and store the CSV data to your database
-![Import CSV](https://github.com/masitsa/storage/app/public/2.png)
+![Import CSV](https://github.com/masitsa/temper/storage/app/public/2.png)
 * The page will reload and the chart will populate using the information in your database
-![Chart](https://github.com/masitsa/storage/app/public/3.png)
+![Chart](https://github.com/masitsa/temper/storage/app/public/3.png)
 
 ```
 Each time you update the chart data it will clear the database table and import the new CSV
