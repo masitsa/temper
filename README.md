@@ -29,6 +29,10 @@ DB_USERNAME={YOUR DATABSE USERNAME}
 DB_PASSWORD={YOUR DATABASE PASSWORD}
 ```
 * In your CLI navigate to the root of the project folder
+* Install the solution
+```
+composer install
+```
 * Run database migrations
 ```
 php artisan migrate
